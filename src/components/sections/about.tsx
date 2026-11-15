@@ -17,7 +17,7 @@ export function About() {
           <p>
             I&apos;m Deb — a final-year Computer Science (Data Science) student at SJB Institute of Technology,
             Bangalore. I like problems where software meets the physical world and the stakes are real: a woman walking
-            home alone, a first-time UPI user facing a phishing link, a deaf student trying to be understood.
+            home alone, a first-time UPI user facing a phishing link, a patient who needs care that is easier to reach.
           </p>
           <p>
             That&apos;s led me to build across the whole stack — Supabase backends with row-level security, React Native
