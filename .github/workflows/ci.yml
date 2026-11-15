@@ -44,7 +44,7 @@ jobs:
       - run: npm ci
       - uses: supabase/setup-cli@v1
         with:
-          version: latest
+          version: 2.121.0 # keep in sync with local CLI (generated types differ between versions)
 
       - name: Start Supabase (migrations + seed)
         # The CLI health-checks PostgREST before applying migrations, but the
