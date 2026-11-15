@@ -100,6 +100,39 @@ test.describe("public site", () => {
   });
 });
 
+test.describe("content is visible without animations", () => {
+  test("with prefers-reduced-motion", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+    await expect(page.getByRole("button", { name: /switch to (dark|light) theme/i })).toBeVisible();
+    for (const sel of ["h1", "section#about h2", "section#contact form"]) {
+      const opacity = await page
+        .locator(sel)
+        .first()
+        .evaluate((el) => {
+          let min = 1;
+          for (let n: Element | null = el; n; n = n.parentElement)
+            min = Math.min(min, Number(getComputedStyle(n).opacity));
+          return min;
+        });
+      expect(opacity, sel).toBe(1);
+    }
+  });
+});
+
+test.describe("without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+  test("hero and sections are readable", async ({ page }) => {
+    await page.goto("/");
+    const opacity = await page.locator("h1").evaluate((el) => {
+      let min = 1;
+      for (let n: Element | null = el; n; n = n.parentElement) min = Math.min(min, Number(getComputedStyle(n).opacity));
+      return min;
+    });
+    expect(opacity).toBe(1);
+  });
+});
+
 test.describe("interactions", () => {
   test("theme toggle switches between light and dark", async ({ page }) => {
     await page.emulateMedia({ colorScheme: "light" });

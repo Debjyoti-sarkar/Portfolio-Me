@@ -53,6 +53,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     // next-themes sets the class before paint; suppress the expected mismatch.
     <html lang="en-IN" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-dvh">
+        <noscript>
+          {/* Without JS, scroll reveals never run: keep all content visible. */}
+          <style>{`[data-reveal]{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <Providers>{children}</Providers>
       </body>
     </html>

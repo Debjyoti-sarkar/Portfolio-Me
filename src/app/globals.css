@@ -104,6 +104,11 @@
     html {
       scroll-behavior: auto;
     }
+    /* Scroll reveals start hidden on the server; show them immediately. */
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+    }
     *,
     *::before,
     *::after {

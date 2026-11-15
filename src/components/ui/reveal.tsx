@@ -1,11 +1,16 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
 
 /**
- * Fade-and-rise on first scroll into view. With reduced motion the content
- * is simply shown (no transform, no delay).
+ * Fade-and-rise on first scroll into view.
+ *
+ * The server renders the hidden starting state, so visibility must never
+ * depend on JS branching here (a different client tree would leave the
+ * server's `opacity: 0` in place after hydration). Instead, globals.css
+ * forces `[data-reveal]` visible for `prefers-reduced-motion: reduce`, and
+ * the root layout does the same inside <noscript>.
  */
 export function Reveal({
   children,
@@ -16,10 +21,9 @@ export function Reveal({
   delay?: number;
   className?: string;
 }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
+      data-reveal=""
       className={className}
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
