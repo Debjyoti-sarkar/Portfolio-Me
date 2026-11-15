@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /resume.pdf
-
-Sitemap: https://deb.app/sitemap.xml
